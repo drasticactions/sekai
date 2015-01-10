@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="en" original="Sekai.WindowsPhone_Multilingual.prilog.xml" tool-id="MultilingualAppToolkit" product-name="Sekai.WindowsPhone" product-version="1.0.0.0" build-num="0">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="3.1.1250.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="Resources">
+        <trans-unit id="Resources\Pin\Header" translate="yes" xml:space="preserve">
+          <source>Pin</source>
+          <target state="new">Pin</target>
+        </trans-unit>
+        <trans-unit id="Resources\Login" translate="yes" xml:space="preserve">
+          <source>Login</source>
+          <target state="new">Login</target>
+        </trans-unit>
+        <trans-unit id="Resources\LoadingBlock\Text" translate="yes" xml:space="preserve">
+          <source>Loading</source>
+          <target state="translated">Loading...</target>
+        </trans-unit>
+        <trans-unit id="Resources\GetPin\Content" translate="yes" xml:space="preserve">
+          <source>Get Pin</source>
+          <target state="new">Get Pin</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
