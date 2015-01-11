@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using LinqToTwitter;
 using Newtonsoft.Json;
+using Sekai.Commands;
 using Sekai.Tools;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
@@ -74,7 +75,7 @@ namespace Sekai.Views
         /// session.  The state will be null the first time a page is visited.</param>
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            await Task.Delay(2000);
+            //await Task.Delay(2000);
             InMemoryCredentialStore credentialStore;
             if (_localSettings.Values.ContainsKey(Constants.Credential))
             {
@@ -107,7 +108,8 @@ namespace Sekai.Views
                 if (verifyResponse?.User != null)
                 {
                     Locator.ViewModels.MainPageVm.User = verifyResponse.User;
-                    App.RootFrame.Navigate(typeof(MainPage));
+                    var navCommand = new NavigateToMainPageCommand();
+                    navCommand.Execute(null);
                 }
                 else
                 {

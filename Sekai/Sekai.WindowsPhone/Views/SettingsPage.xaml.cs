@@ -3,10 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -14,6 +19,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
@@ -23,12 +29,12 @@ namespace Sekai.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class SettingsPage : Page
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
-        public MainPage()
+        public SettingsPage()
         {
             this.InitializeComponent();
 
@@ -108,9 +114,63 @@ namespace Sekai.Views
 
         #endregion
 
-        private async void PullToRefreshPanel_OnPullToRefresh(object sender, EventArgs e)
+        public async void ContinueFileOpenPicker(FileOpenPickerContinuationEventArgs fileOpenPickerContinuationEventArgs)
         {
-            Locator.ViewModels.MainPageVm.TimelineScrollingCollection.RefreshTweets();
+            var file = fileOpenPickerContinuationEventArgs.Files?.FirstOrDefault();
+            if (file == null) return;
+            Locator.ViewModels.SettingPageVm.IsLoading = true;
+            try
+            {
+                IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
+                BitmapImage bitmapImage = new BitmapImage();
+                ImageBrush brush = new ImageBrush();
+                await bitmapImage.SetSourceAsync(stream);
+                brush.ImageSource = bitmapImage;
+                brush.Stretch = Stretch.None;
+                App.RootFrame.Background = brush;
+                var img = await ConvertImage.ConvertImagetoByte(file);
+                await SaveWallpaper(img);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Throw to debug helper.
+            }
+            Locator.ViewModels.SettingPageVm.IsLoading = false;
+        }
+
+        private async Task<bool> SaveWallpaper(byte[] img)
+        {
+            try
+            {
+                using (var streamWeb = new InMemoryRandomAccessStream())
+                {
+                    using (var writer = new DataWriter(streamWeb.GetOutputStreamAt(0)))
+                    {
+                        writer.WriteBytes(img);
+                        await writer.StoreAsync();
+                        var storageFolder = ApplicationData.Current.LocalFolder;
+                        var file = await storageFolder.CreateFileAsync("wp.jpg", CreationCollisionOption.OpenIfExists);
+                        var raStream = await file.OpenAsync(FileAccessMode.ReadWrite);
+
+                        using (var thumbnailStream = streamWeb.GetInputStreamAt(0))
+                        {
+                            using (var stream = raStream.GetOutputStreamAt(0))
+                            {
+                                await RandomAccessStream.CopyAsync(thumbnailStream, stream);
+                                await stream.FlushAsync();
+                            }
+                        }
+                        raStream.Dispose();
+                        await writer.FlushAsync();
+                    }
+                    await streamWeb.FlushAsync();
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

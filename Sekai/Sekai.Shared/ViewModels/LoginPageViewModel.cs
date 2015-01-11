@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using LinqToTwitter;
 using Newtonsoft.Json;
+using Sekai.Commands;
 using Sekai.Common;
 using Sekai.Tools;
 using Sekai.Views;
@@ -17,6 +18,7 @@ namespace Sekai.ViewModels
         private bool _isLoading;
         private string _password;
         private readonly ApplicationDataContainer _localSettings = ApplicationData.Current.LocalSettings;
+        public NavigateToMainPageCommand NavigateToMainPageCommand { get; set; } = new NavigateToMainPageCommand();
         public string Pin
         {
             get { return _password; }
@@ -73,8 +75,7 @@ namespace Sekai.ViewModels
                 loginResult = false;
             }
             IsLoading = false;
-            base.RaiseEvent(loginResult ? LoginSuccessful : LoginFailed, EventArgs.Empty);
-
+            RaiseEvent(loginResult ? LoginSuccessful : LoginFailed, EventArgs.Empty);
         }
     }
 }

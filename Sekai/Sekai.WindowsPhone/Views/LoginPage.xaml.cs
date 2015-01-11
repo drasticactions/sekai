@@ -127,7 +127,7 @@ namespace Sekai.Views
 
         private void OnLoginSuccessful(object sender, EventArgs e)
         {
-            Frame.Navigate(typeof(MainPage));
+            _vm.NavigateToMainPageCommand.Execute(null);
             Frame.BackStack.Clear();
         }
 

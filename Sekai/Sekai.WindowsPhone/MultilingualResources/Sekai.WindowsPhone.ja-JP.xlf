@@ -6,6 +6,14 @@
     </header>
     <body>
       <group id="Resources">
+        <trans-unit id="Resources\TimelinePanel\RefreshContent" translate="yes" xml:space="preserve">
+          <source>Refresh Tweets...</source>
+          <target state="translated">離して更新</target>
+        </trans-unit>
+        <trans-unit id="Resources\TimelinePanel\PullContent" translate="yes" xml:space="preserve">
+          <source>Pull To Refresh...</source>
+          <target state="translated">引っ張って</target>
+        </trans-unit>
         <trans-unit id="Resources\Pin\Header" translate="yes" xml:space="preserve">
           <source>Pin</source>
           <target state="new">Pin</target>

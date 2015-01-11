@@ -7,6 +7,8 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,9 +16,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Autofac;
 using Sekai.Common;
+using Sekai.ViewModels;
 using Sekai.Views;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
@@ -44,6 +48,24 @@ namespace Sekai
             this.Suspending += this.OnSuspending;
             Container = AutoFacConfiguration.Configure();
         }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            RootFrame = Window.Current.Content as Frame;
+            if (RootFrame == null)
+            {
+                base.OnActivated(args);
+                return;
+            }
+#if WINDOWS_PHONE_APP
+            var settingsPage = RootFrame.Content as SettingsPage;
+            if (settingsPage != null && args is FileOpenPickerContinuationEventArgs)
+            {
+                settingsPage.ContinueFileOpenPicker(args as FileOpenPickerContinuationEventArgs);
+            }
+#endif
+        }
+
         public static Frame RootFrame;
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -51,7 +73,7 @@ namespace Sekai
         /// search results, and so forth.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
@@ -78,7 +100,7 @@ namespace Sekai
                 // Place the frame in the current Window
                 Window.Current.Content = RootFrame;
             }
-
+            
             if (RootFrame.Content == null)
             {
 #if WINDOWS_PHONE_APP
@@ -95,7 +117,25 @@ namespace Sekai
                 RootFrame.ContentTransitions = null;
                 RootFrame.Navigated += this.RootFrame_FirstNavigated;
 #endif
-
+                try
+                {
+                    var storageFolder = ApplicationData.Current.LocalFolder;
+                    var file = await storageFolder.GetFileAsync("wp.jpg");
+                    using (IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
+                    {
+                        // Set the image source to the selected bitmap
+                        BitmapImage bitmapImage = new BitmapImage();
+                        ImageBrush brush = new ImageBrush();
+                        await bitmapImage.SetSourceAsync(fileStream);
+                        brush.ImageSource = bitmapImage;
+                        brush.Stretch = Stretch.None;
+                        RootFrame.Background = brush;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // TODO: File does not exist.
+                }
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter

@@ -20,5 +20,9 @@ namespace Sekai.Locator
         }
 
         public static MainPageViewModel MainPageVm => App.Container.Resolve<MainPageViewModel>();
+
+        public static MessagePageViewModel MessagePageVm => App.Container.Resolve<MessagePageViewModel>();
+
+        public static SettingsPageViewModel SettingPageVm => App.Container.Resolve<SettingsPageViewModel>();
     }
 }

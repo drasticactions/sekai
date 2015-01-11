@@ -101,6 +101,12 @@
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MessagePage.xaml.cs">
+      <DependentUpon>MessagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -119,9 +125,24 @@
     <Reference Include="Autofac">
       <HintPath>..\..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Ika.Controls">
+      <HintPath>..\..\..\Ika.Controls\Ika.Controls.Test\Ika.Controls.Test.WindowsPhone\bin\Release\Ika.Controls.dll</HintPath>
+    </Reference>
     <Reference Include="LinqToTwitterPcl, Version=3.1.1.15391, Culture=neutral, PublicKeyToken=957107be965c25d9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\LinqToTwitter.3.1.1\lib\wpa\LinqToTwitterPcl.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmHelpers.Bootstrap">
+      <HintPath>..\..\Libraries\MvvmHelpers.Bootstrap.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmHelpers.Core">
+      <HintPath>..\..\Libraries\MvvmHelpers.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmHelpers.WinRT">
+      <HintPath>..\..\Libraries\MvvmHelpers.WinRT.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmHelpers.WP">
+      <HintPath>..\..\Libraries\MvvmHelpers.WP.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.7\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
@@ -148,6 +169,12 @@
     <Reference Include="System.Reactive.PlatformServices">
       <HintPath>..\..\packages\Rx-PlatformServices.2.2.5\lib\portable-win81+wpa81\System.Reactive.PlatformServices.dll</HintPath>
     </Reference>
+    <Reference Include="WinRT.Triggers">
+      <HintPath>..\..\packages\WinRTTriggers.1.6.0\lib\winrt45\WinRT.Triggers.dll</HintPath>
+    </Reference>
+    <Reference Include="WinRTXamlToolkit">
+      <HintPath>..\..\packages\WinRTXamlToolkit.1.6.1.3\lib\netcore451\WinRTXamlToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -156,6 +183,11 @@
     <None Include="MultilingualResources\Sekai.WindowsPhone.qps-ploc.xlf" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Resources\PlatformStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="Views\LoadingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -168,6 +200,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\MessagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="MultilingualResources\Sekai.WindowsPhone.en.xlf">
@@ -176,6 +216,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MultilingualResources\Sekai.WindowsPhone.ja-JP.xlf" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
+      <Name>Behaviors SDK %28XAML%29</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

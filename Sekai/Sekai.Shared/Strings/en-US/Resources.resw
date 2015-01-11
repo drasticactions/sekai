@@ -129,4 +129,10 @@
   <data name="Pin.Header" xml:space="preserve">
     <value>Pin</value>
   </data>
+  <data name="TimelinePanel.PullContent" xml:space="preserve">
+    <value>Pull To Refresh...</value>
+  </data>
+  <data name="TimelinePanel.RefreshContent" xml:space="preserve">
+    <value>Refresh Tweets...</value>
+  </data>
 </root>

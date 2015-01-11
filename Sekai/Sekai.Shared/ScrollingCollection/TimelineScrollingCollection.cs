@@ -17,6 +17,12 @@ namespace Sekai.ScrollingCollection
         private ulong _maxId;
         private ulong _sinceId;
         private bool _isLoading;
+
+        public TimelineScrollingCollection()
+        {
+            HasMoreItems = true;
+            IsLoading = false;
+        }
         public bool IsLoading
         {
             get { return _isLoading; }
@@ -46,15 +52,77 @@ namespace Sekai.ScrollingCollection
         public async Task<LoadMoreItemsResult> LoadDataAsync(uint count)
         {
             IsLoading = true;
+            List<Status> tweets;
+            if (_maxId == 0)
+            {
+                tweets = await GetFreshStatus();
+            }
+            else
+            {
+                tweets = await GetMaxIdStatus();
+            }
+            foreach (var tweet in tweets)
+            {
+                Add(tweet);
+            }
+            IsLoading = false;
+            return new LoadMoreItemsResult { Count = count };
+        }
+
+        private async Task<List<Status>> GetMaxIdStatus()
+        {
+            var tweets =
+               await
+               (from tweet in Locator.ViewModels.MainPageVm.TwitterContext.Status
+                where tweet.Type == StatusType && tweet.MaxID == _maxId
+                select tweet)
+               .ToListAsync();
+            if (tweets.Any())
+            {
+                _maxId = tweets.Last().StatusID;
+            }
+            return tweets;
+        }
+
+        private async Task<List<Status>> GetFreshStatus()
+        {
             var tweets =
                await
                (from tweet in Locator.ViewModels.MainPageVm.TwitterContext.Status
                 where tweet.Type == StatusType
                 select tweet)
                .ToListAsync();
-            tweets.Reverse	()
+            if (tweets.Any())
+            {
+                _maxId = tweets.Last().StatusID;
+            }
+            return tweets;
+        }
+
+        public async Task RefreshTweets()
+        {
+            if (!this.Any())
+            {
+                return;
+            }
+            IsLoading = true;
+            var tweets =
+               await
+               (from tweet in Locator.ViewModels.MainPageVm.TwitterContext.Status
+                where tweet.Type == StatusType && tweet.SinceID == this.First().StatusID
+                select tweet)
+               .ToListAsync();
+            if (!tweets.Any())
+            {
+                IsLoading = false;
+                return;
+            }
+            tweets.Reverse();
+            foreach (var tweet in tweets)
+            {
+               Insert(0, tweet);
+            }
             IsLoading = false;
-            return new LoadMoreItemsResult { Count = count };
         }
         public bool HasMoreItems { get; private set; }
     }

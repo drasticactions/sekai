@@ -5,31 +5,60 @@
     xmlns:local="using:Sekai.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tools="using:Sekai.Tools"
+    xmlns:controls="using:Ika.Controls"
+    xmlns:triggers="using:WinRT.Triggers"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    DataContext="{Binding Source={StaticResource Locator}, Path=MainPageVm}">
+    <Page.Background>
+        <SolidColorBrush Color="Black" Opacity="0.65" />
+    </Page.Background>
+    <Page.Resources>
+        <tools:StatusTemplateSelector x:Key="StatusTemplateSelector" RetweetTimelineStatusTemplate="{StaticResource RetweetTimelineStatusTemplate}" MentionTimelineStatusTemplate="{StaticResource MentionTimelineStatusTemplate}" DefaultTimelineStatusTemplate="{StaticResource DefaultTimelineStatusTemplate}" />
+    </Page.Resources>
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <ContinuumNavigationTransitionInfo/>
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
     <Grid x:Name="LayoutRoot">
-
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <!-- Title Panel -->
-        <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="MY APPLICATION" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="page title" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
-        </StackPanel>
-
+        <ProgressBar IsIndeterminate="True" VerticalAlignment="Top" Visibility="{Binding TimelineScrollingCollection.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" Height="5"/>
         <!--TODO: Content should be placed within the following grid-->
-        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
-
+        <Grid x:Name="ContentRoot">
+            <controls:PullToRefreshPanel x:Uid="TimelinePanel" PullToRefresh="PullToRefreshPanel_OnPullToRefresh">
+                <ListView ItemTemplateSelector="{StaticResource StatusTemplateSelector}" 
+                      ItemsSource="{Binding TimelineScrollingCollection}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </controls:PullToRefreshPanel>
         </Grid>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Edit"/>
+             <AppBarButton Icon="Zoom"/>
+        <CommandBar.SecondaryCommands>
+            <AppBarButton Label="Settings">
+             <triggers:Interactions.Triggers>
+                        <triggers:EventTrigger EventName="Click">
+                            <triggers:InvokeCommandAction Command="{Binding NavigateToSettingsCommand}"  PassEventArgsToCommand="True"/>
+                        </triggers:EventTrigger>
+            </triggers:Interactions.Triggers>    
+            </AppBarButton>
+        </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

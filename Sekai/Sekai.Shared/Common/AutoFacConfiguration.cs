@@ -15,7 +15,8 @@ namespace Sekai.Common
 
             // Register View Models
             builder.RegisterType<MainPageViewModel>().SingleInstance();
-
+            builder.RegisterType<MessagePageViewModel>().SingleInstance();
+            builder.RegisterType<SettingsPageViewModel>().SingleInstance();
             builder.RegisterType<MainPage>();
             return builder.Build();
         }

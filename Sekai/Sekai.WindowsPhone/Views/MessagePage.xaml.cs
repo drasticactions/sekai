@@ -23,12 +23,12 @@ namespace Sekai.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class MessagePage : Page
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
 
-        public MainPage()
+        public MessagePage()
         {
             this.InitializeComponent();
 
@@ -107,10 +107,5 @@ namespace Sekai.Views
         }
 
         #endregion
-
-        private async void PullToRefreshPanel_OnPullToRefresh(object sender, EventArgs e)
-        {
-            Locator.ViewModels.MainPageVm.TimelineScrollingCollection.RefreshTweets();
-        }
     }
 }

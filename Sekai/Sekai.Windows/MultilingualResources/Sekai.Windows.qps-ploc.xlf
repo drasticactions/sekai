@@ -6,9 +6,29 @@
     </header>
     <body>
       <group id="Resources">
+        <trans-unit id="Resources\TimelinePanel\RefreshContent" translate="yes" xml:space="preserve">
+          <source>Refresh Tweets...</source>
+          <target state="new">Refresh Tweets...</target>
+        </trans-unit>
+        <trans-unit id="Resources\TimelinePanel\PullContent" translate="yes" xml:space="preserve">
+          <source>Pull To Refresh...</source>
+          <target state="new">Pull To Refresh...</target>
+        </trans-unit>
+        <trans-unit id="Resources\Pin\Header" translate="yes" xml:space="preserve">
+          <source>Pin</source>
+          <target state="new">Pin</target>
+        </trans-unit>
+        <trans-unit id="Resources\Login" translate="yes" xml:space="preserve">
+          <source>Login</source>
+          <target state="new">Login</target>
+        </trans-unit>
         <trans-unit id="Resources\LoadingBlock\Text" translate="yes" xml:space="preserve">
           <source>Loading</source>
           <target state="new">Loading</target>
+        </trans-unit>
+        <trans-unit id="Resources\GetPin\Content" translate="yes" xml:space="preserve">
+          <source>Get Pin</source>
+          <target state="new">Get Pin</target>
         </trans-unit>
       </group>
     </body>
