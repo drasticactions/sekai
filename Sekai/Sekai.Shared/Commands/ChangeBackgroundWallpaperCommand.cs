@@ -19,7 +19,9 @@ namespace Sekai.Commands
             openPicker.FileTypeFilter.Add(".jpeg");
             openPicker.FileTypeFilter.Add(".png");
             openPicker.FileTypeFilter.Add(".gif");
-            openPicker.PickSingleFileAndContinue();
+#if WINDOWS_PHONE_APP
+             openPicker.PickSingleFileAndContinue();
+#endif
         }
     }
 }

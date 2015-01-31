@@ -125,8 +125,9 @@
     <Reference Include="Autofac">
       <HintPath>..\..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Ika.Controls">
-      <HintPath>..\..\..\Ika.Controls\Ika.Controls.Test\Ika.Controls.Test.WindowsPhone\bin\Release\Ika.Controls.dll</HintPath>
+    <Reference Include="Ika.Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\Ika.Controls-WinPhone\Ika.Controls.dll</HintPath>
     </Reference>
     <Reference Include="LinqToTwitterPcl, Version=3.1.1.15391, Culture=neutral, PublicKeyToken=957107be965c25d9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

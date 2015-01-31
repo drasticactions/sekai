@@ -51,7 +51,7 @@
             <AppBarButton Icon="Edit"/>
              <AppBarButton Icon="Zoom"/>
         <CommandBar.SecondaryCommands>
-            <AppBarButton Label="Settings">
+            <AppBarButton x:Uid="SettingsLabel" Label="Settings">
              <triggers:Interactions.Triggers>
                         <triggers:EventTrigger EventName="Click">
                             <triggers:InvokeCommandAction Command="{Binding NavigateToSettingsCommand}"  PassEventArgsToCommand="True"/>

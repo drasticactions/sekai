@@ -146,7 +146,7 @@
       <HintPath>..\..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Ika.Controls">
-      <HintPath>..\..\..\Awful-Forums-Reader\Libraries\Ika.Controls-WinPhone\Ika.Controls.dll</HintPath>
+      <HintPath>..\..\Libraries\Ika.Controls-Win8\Ika.Controls.dll</HintPath>
     </Reference>
     <Reference Include="LinqToTwitter.WindowsStore">
       <HintPath>..\..\packages\LinqToTwitter.3.1.1\lib\win8\LinqToTwitter.WindowsStore.dll</HintPath>
