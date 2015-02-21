@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>78c88c18-7f6c-4e77-b049-84eff27b332b</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Sekai</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Command\AddNewTimelineCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Command\ChangeBackgroundWallpaperCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Command\NavigateToFeedPageCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Command\NavigateToSettingsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Command\OpenImagePopupCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\AlwaysExecutableCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\AsyncDelegateCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\AutoFacConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ContinuationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ConvertImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\NotifierBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Locator\ViewModels.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScrollingCollection\TimelineScrollingCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\BooleanToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\HasMediaConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\LinqExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\MediaPreviewConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\SekaiDebugger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\StatusTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\StorageFolderExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tools\WindowsRuntimeResourceManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AccountViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FeedPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MediaViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TimelineViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Resources\Styles.xaml" />
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\plugins.png" />
+  </ItemGroup>
+</Project>

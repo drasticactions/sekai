@@ -1,0 +1,51 @@
+﻿<Page
+    x:Class="Sekai.Views.AccountPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Sekai.Views"
+    DataContext="{Binding Source={StaticResource Locator}, Path=AccountPageVm}"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:triggers="using:WinRT.Triggers"
+    mc:Ignorable="d">
+    <Page.Background>
+        <SolidColorBrush Color="Black" Opacity="0.65" />
+    </Page.Background>
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ProgressBar IsIndeterminate="True" VerticalAlignment="Top" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"></ProgressBar>
+        <!-- Title Panel -->
+        <StackPanel Grid.Row="0" Margin="19,0,0,0">
+            <TextBlock FontSize="30" Text="アカウント" Margin="0,15,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
+            <ListView IsItemClickEnabled="True" ItemsSource="{Binding UserAccounts}">
+                    <triggers:Interactions.Triggers>
+                        <triggers:EventTrigger EventName="ItemClick">
+                            <triggers:InvokeCommandAction Command="{Binding NavigateToFeedPageCommand}"
+                                                  PassEventArgsToCommand="True" />
+                        </triggers:EventTrigger>
+                    </triggers:Interactions.Triggers>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="30" Text="{Binding UserName}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+    <Page.BottomAppBar><CommandBar>
+        <AppBarButton Command="{Binding ClickLoginButtonCommand}" Icon="Add" Label="アカウント追加"/>
+    </CommandBar></Page.BottomAppBar>
+</Page>
