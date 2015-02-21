@@ -5,6 +5,7 @@ using System.Text;
 using Windows.UI.Xaml.Controls;
 using Sekai.Common;
 using Sekai.Controls;
+using Tweetinvi.Core.Interfaces;
 using Tweetinvi.Core.Interfaces.Models.Entities;
 
 namespace Sekai.ViewModels
@@ -13,7 +14,16 @@ namespace Sekai.ViewModels
     {
         private bool _isLoading;
         private List<IMediaEntity> _items;
-
+        private ITweet _tweet;
+        public ITweet Tweet
+        {
+            get { return _tweet; }
+            set
+            {
+                SetProperty(ref _tweet, value);
+                OnPropertyChanged();
+            }
+        }
         public List<IMediaEntity> Items
         {
             get { return _items; }
@@ -24,14 +34,11 @@ namespace Sekai.ViewModels
             }
         }
 
-        public void InitializeFlipView(List<IMediaEntity> mediaEntities)
+        public void InitializeFlipView(List<IMediaEntity> mediaEntities, ITweet tweet)
         {
             Items = new List<IMediaEntity>();
-            foreach (var element in mediaEntities)
-            {
-                Items.Add(element);
-                Items.Add(element);
-            }
+            Tweet = tweet;
+            Items = mediaEntities;
         }
 
 

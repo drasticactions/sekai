@@ -24,7 +24,7 @@ namespace Sekai.Command
             {
                 return;
             }
-            Locator.ViewModels.MediaPageVm.InitializeFlipView(mediaEntities);
+            Locator.ViewModels.MediaPageVm.InitializeFlipView(mediaEntities, tweet);
             App.RootFrame.Navigate(typeof (ImageViewerPage));
         }
     }

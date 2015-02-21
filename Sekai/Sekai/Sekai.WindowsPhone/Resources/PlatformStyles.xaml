@@ -24,6 +24,8 @@
                         </StackPanel>
                         <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
                         <TextBlock Text="{Binding CreatedAt}" FontSize="15" TextWrapping="NoWrap" />
+                        <Image Source="{Binding Path=Media[0].MediaURL}"
+                                               MaxHeight="100" Stretch="UniformToFill" />
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -54,6 +56,8 @@
                         </StackPanel>
                         <TextBlock Text="{Binding RetweetedTweet.Text}" TextWrapping="Wrap" />
                         <TextBlock Text="{Binding RetweetedTweet.CreatedAt}" FontSize="15" TextWrapping="NoWrap" />
+                        <Image Source="{Binding Path=RetweetedTweet.Media[0].MediaURL}"
+                                               MaxHeight="100" Stretch="UniformToFill" />
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -81,6 +85,8 @@
                         </StackPanel>
                         <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
                         <TextBlock Text="{Binding CreatedAt}" FontSize="15" TextWrapping="NoWrap" />
+                                                <Image Source="{Binding Path=Media[0].MediaURL}"
+                                               MaxHeight="100" Stretch="UniformToFill" />
                     </StackPanel>
                 </Grid>
             </Grid>

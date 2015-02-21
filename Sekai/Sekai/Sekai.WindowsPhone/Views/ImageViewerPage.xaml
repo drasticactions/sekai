@@ -24,5 +24,30 @@
                 </DataTemplate>
             </FlipView.ItemTemplate>
         </FlipView>
+      <Grid VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.Row="0" Fill="Transparent"/>
+            <Grid Grid.Column="1">
+                <Grid Margin="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border VerticalAlignment="Top" Grid.Column="0" Width="50" Height="50">
+                        <Image Source="{Binding Tweet.Creator.ProfileImageUrl}" Stretch="UniformToFill" />
+                    </Border>
+                    <StackPanel x:Name="PostStackPanel" Grid.Column="1" Margin="10,0,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Tweet.Creator.Name}" FontWeight="Bold" TextWrapping="NoWrap" TextTrimming="WordEllipsis"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding Tweet.Text}" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding Tweet.CreatedAt}" FontSize="15" TextWrapping="NoWrap" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

@@ -32,7 +32,7 @@ namespace Sekai.Controls
         {
             _popup = popup;
             _vm = (MediaViewModel)DataContext;
-            _vm.InitializeFlipView(mediaEntities);
+            _vm.InitializeFlipView(mediaEntities, null);
         }
 
         private void Close_OnClick(object sender, RoutedEventArgs e)
